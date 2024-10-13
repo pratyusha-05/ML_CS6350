@@ -157,7 +157,7 @@ def evaluate_model():
     train_error = 1 - accuracy_score(y_train, train_predictions)
     test_error = 1 - accuracy_score(y_test, test_predictions)
 
-    print("Training Error:", train_error)
+    print("Train Error:", train_error)
     print("Test Error:", test_error)
     display_plot()
 
