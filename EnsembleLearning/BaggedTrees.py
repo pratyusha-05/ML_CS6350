@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[26]:
-
-
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
@@ -142,6 +136,7 @@ def evaluate_bagged_trees_model(n_trees, x_train, y_train, x_test, y_test):
     plt.title('Training and Test Errors vs. Number of Trees')
     plt.legend()
     plt.show()
+    plt.savefig('baggedTrees.png')
 
 def main():
     columns = ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome', 'y']
