@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[8]:
-
 
 from BaggedTrees import BaggedTrees, DecisionTreeClassifier
 import numpy as np
@@ -33,7 +28,6 @@ num_iterations = 100
 num_bagged_trees = 500
 
 for iteration in range(1, num_iterations + 1):
-    print(iteration)
     n_samples = X_train.shape[0]
     
     sample_indices = np.random.choice(n_samples, size=1000, replace=False)
