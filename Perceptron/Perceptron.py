@@ -15,9 +15,9 @@ max_epochs = 10
 weights = np.zeros(X_train.shape[1])
 
 for epoch in range(max_epochs):
-    permutation = np.random.permutation(len(X_train))
-    X_train = X_train[permutation]
-    y_train = y_train[permutation]
+    p = np.random.permutation(len(X_train))
+    X_train = X_train[p]
+    y_train = y_train[p]
     
     l = range(len(X_train)) 
     
