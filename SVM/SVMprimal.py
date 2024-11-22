@@ -16,10 +16,8 @@ class SVM:
         return self.gamma0 / (1 + (self.gamma0 * t / self.a))
 
     def _compute_objective(self, X, y):
-        # Compute regularization term
         reg_term = 0.5 * np.sum(self.w[:-1] ** 2)  # Exclude bias term
 
-        # Compute hinge loss
         margins = y * (np.dot(X, self.w))
         hinge_losses = np.maximum(0, 1 - margins)
         avg_hinge_loss = np.mean(hinge_losses)
@@ -28,14 +26,11 @@ class SVM:
 
     def fit(self, X, y):
         n_samples, n_features = X.shape
-        # Initialize weights (including bias term)
         self.w = np.zeros(n_features + 1)
 
-        # Add bias term to X
         X_bias = np.hstack([X, np.ones((n_samples, 1))])
 
         for epoch in range(self.max_epochs):
-            # Shuffle training examples
             indices = np.random.permutation(n_samples)
             X_shuffled = X_bias[indices]
             y_shuffled = y[indices]
@@ -43,7 +38,6 @@ class SVM:
             for i in range(n_samples):
                 gamma_t = self.learning_rate(epoch * n_samples + i)
 
-                # Compute gradient
                 if y_shuffled[i] * np.dot(X_shuffled[i], self.w) < 1:
                     grad = np.zeros_like(self.w)
                     grad[:-1] = self.w[:-1] - self.C * n_samples * y_shuffled[i] * X_shuffled[i][:-1]
@@ -52,10 +46,8 @@ class SVM:
                     grad = np.zeros_like(self.w)
                     grad[:-1] = self.w[:-1]  # No gradient for bias term when margin is satisfied
 
-                # Update weights
                 self.w -= gamma_t * grad
 
-            # Store objective value for plotting
             obj_value = self._compute_objective(X_bias, y)
             self.objective_values.append(obj_value)
 
@@ -64,35 +56,29 @@ class SVM:
         return np.sign(np.dot(X_bias, self.w))
 
 def load_and_preprocess_data():
-    # Load training data
     train_data = pd.read_csv('Datasets/bank-note/train.csv', header=None)
     X_train = train_data.iloc[:, :-1].values
     y_train = train_data.iloc[:, -1].values
 
-    # Load test data
     test_data = pd.read_csv('Datasets/bank-note/test.csv', header=None)
     X_test = test_data.iloc[:, :-1].values
     y_test = test_data.iloc[:, -1].values
 
-    # Convert labels to {1, -1}
     y_train = 2 * y_train - 1
     y_test = 2 * y_test - 1
 
     return X_train, y_train, X_test, y_test
 
 def evaluate_model(C, gamma0, a):
-    # Load and preprocess data
+
     X_train, y_train, X_test, y_test = load_and_preprocess_data()
 
-    # Train model
     svm = SVM(C=C, gamma0=gamma0, a=a)
     svm.fit(X_train, y_train)
 
-    # Make predictions
     train_pred = svm.predict(X_train)
     test_pred = svm.predict(X_test)
 
-    # Calculate errors
     train_error = 1 - accuracy_score(y_train, train_pred)
     test_error = 1 - accuracy_score(y_test, test_pred)
 
