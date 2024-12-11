@@ -56,19 +56,6 @@ class NeuralNetwork:
         predictions = (y_pred > 0.5).astype(int)
         return np.mean(predictions != y) * 100
 
-
-def load_data():
-    train_data = pd.read_csv("Datasets/bank-note/train.csv", header=None)
-    test_data = pd.read_csv("Datasets/bank-note/test.csv", header=None)
-
-    x_train = train_data.iloc[:, :-1].values
-    y_train = train_data.iloc[:, -1].values.reshape(-1, 1)
-
-    x_test = test_data.iloc[:, :-1].values
-    y_test = test_data.iloc[:, -1].values.reshape(-1, 1)
-
-    return x_train, y_train, x_test, y_test
-
 def sgd(nn, x_train, y_train, x_test, y_test, gamma_0, d, epochs):
     for epoch in range(epochs):
         indices = np.arange(x_train.shape[0])
@@ -90,8 +77,8 @@ def sgd(nn, x_train, y_train, x_test, y_test, gamma_0, d, epochs):
     return train_error, test_error
 
 
-train_data = pd.read_csv("/content/drive/MyDrive/Datasets/bank-note/train.csv", header=None)
-test_data = pd.read_csv("/content/drive/MyDrive/Datasets/bank-note/test.csv", header=None)
+train_data = pd.read_csv("Datasets/bank-note/train.csv", header=None)
+test_data = pd.read_csv("Datasets/bank-note/test.csv", header=None)
 
 x_train = train_data.iloc[:, :-1].values
 y_train = train_data.iloc[:, -1].values.reshape(-1, 1)
