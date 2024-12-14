@@ -1,5 +1,1 @@
-#!/bin/sh
-
-python3 logisticRegressionMAP.py
-
-python3 logisticRegressionML.py
+This folder contains all the code files related to Logistic Regression. Please have the Datasets folder and the code files in the same directory and use the run.sh file to run the codes
